@@ -1,15 +1,16 @@
 import hashlib
 import sys
+from pathlib import Path
+
 
 def calculate_sha256(filepath: str) -> str:
     """Reads file and calculates SHA-256 hash."""
-    sha256_hash = hashlib.sha256()
     try:
-        with open(filepath, "rb") as f:
-            sha256_hash.update(f.read())
-        return sha256_hash.hexdigest()
+        # read_bytes() safely handles context management internally, resulting in cleaner code
+        return hashlib.sha256(Path(filepath).read_bytes()).hexdigest()
     except FileNotFoundError:
         return ""
+
 
 def prompt_yes_no(message: str, default: bool = False) -> bool:
     """Standard terminal prompt waiting for boolean input."""

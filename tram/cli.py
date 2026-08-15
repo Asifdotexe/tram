@@ -1,7 +1,8 @@
 import argparse
 import sys
 
-from .core import execute_install, execute_remove, execute_list, execute_check
+from .core import execute_check, execute_install, execute_list, execute_remove
+
 
 def main():
     parser = argparse.ArgumentParser(description="Terminal Router for Agent Modules (TRAM)")
@@ -25,18 +26,15 @@ def main():
 
     args = parser.parse_args()
 
-    try:
-        if args.command == "install":
-            sys.exit(execute_install(args.url, args.agent, args.global_install))
-        elif args.command == "remove":
-            sys.exit(execute_remove(args.skill_name))
-        elif args.command == "list":
-            sys.exit(execute_list())
-        elif args.command == "check":
-            sys.exit(execute_check())
-    except Exception as e:
-        sys.stderr.write(f"Unexpected Error: {str(e)}\n")
-        sys.exit(1)
+    if args.command == "install":
+        sys.exit(execute_install(args.url, args.agent, args.global_install))
+    elif args.command == "remove":
+        sys.exit(execute_remove(args.skill_name))
+    elif args.command == "list":
+        sys.exit(execute_list())
+    elif args.command == "check":
+        sys.exit(execute_check())
+
 
 if __name__ == "__main__":
     main()
