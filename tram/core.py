@@ -19,7 +19,14 @@ from .utils import calculate_sha256, prompt_yes_no
 
 
 def execute_install(url: str, target_agent: str | None = None, global_install: bool = False) -> int:
-    """Orchestrates network fetch, compatibility checks, disk writes, and state updates."""
+    """
+    Orchestrates network fetch, compatibility checks, disk writes, and state updates.
+
+    :param url: The raw GitHub URL to a markdown file representing the skill.
+    :param target_agent: The target agent for compatibility verification.
+    :param global_install: A flag indicating if the skill should be installed globally.
+    :return: An integer representing the exit code.
+    """
     url = transform_github_url(url)
 
     # Try fetching manifest
@@ -79,7 +86,12 @@ def execute_install(url: str, target_agent: str | None = None, global_install: b
 
 
 def execute_remove(skill_name: str) -> int:
-    """Looks up path in state, calculates current hash, compares against state hash, prompts if different, deletes file, and removes state entry."""
+    """
+    Validates file integrity, prompts the user if modified, deletes the file, and removes the registry entry.
+
+    :param skill_name: The name of the installed skill to remove.
+    :return: An integer representing the exit code.
+    """
     state = load_registry()
     if skill_name not in state:
         _ = sys.stderr.write(f"Error: Skill '{skill_name}' not found in registry.\n")
@@ -111,7 +123,11 @@ def execute_remove(skill_name: str) -> int:
 
 
 def execute_list() -> int:
-    """Lists all installed skills."""
+    """
+    Lists all installed skills and their installation paths.
+
+    :return: An integer representing the exit code.
+    """
     state = load_registry()
     if not state:
         _ = sys.stdout.write("No skills installed.\n")
@@ -123,7 +139,11 @@ def execute_list() -> int:
 
 
 def execute_check() -> int:
-    """Checks all installed skills for modifications."""
+    """
+    Checks all installed skills against their original SHA-256 hashes to detect unauthorized modifications.
+
+    :return: An integer representing the exit code.
+    """
     state = load_registry()
     if not state:
         _ = sys.stdout.write("No skills installed.\n")

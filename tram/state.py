@@ -17,7 +17,11 @@ REGISTRY_FILE = REGISTRY_DIR / "registry.json"
 
 
 def load_registry() -> dict[str, dict[str, str]]:
-    """Reads ~/.tram/registry.json. Returns {} if missing."""
+    """
+    Reads the state registry from ~/.tram/registry.json.
+
+    :return: A dictionary mapping skill names to their installation metadata.
+    """
     if not REGISTRY_FILE.exists():
         return {}
 
@@ -29,7 +33,12 @@ def load_registry() -> dict[str, dict[str, str]]:
 
 
 def save_registry(state: dict[str, dict[str, str]]) -> None:
-    """Atomic write to prevent file corruption."""
+    """
+    Atomically writes the registry state to disk to prevent file corruption.
+
+    :param state: The registry dictionary containing all installed skills metadata.
+    :raises OSError: If the temporary file cannot be written or replaced.
+    """
     REGISTRY_DIR.mkdir(parents=True, exist_ok=True)
 
     # Write to a temporary file in the same directory to ensure atomic rename

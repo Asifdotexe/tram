@@ -14,7 +14,9 @@ from .core import execute_check, execute_install, execute_list, execute_remove
 
 def main() -> None:
     """
-    Entrypoint for tram
+    Entrypoint for tram.
+
+    Initializes the argument parser and routes subcommands to their respective execution functions.
     """
     parser = argparse.ArgumentParser(description="Terminal Router for Agent Modules (TRAM)")
     subparsers = parser.add_subparsers(dest="command", required=True)

@@ -12,7 +12,12 @@ from pathlib import Path
 
 
 def calculate_sha256(filepath: str) -> str:
-    """Reads file and calculates SHA-256 hash."""
+    """
+    Reads a file from disk and calculates its SHA-256 hash.
+
+    :param filepath: The path to the file.
+    :return: The computed SHA-256 hash string, or an empty string if missing.
+    """
     try:
         # read_bytes() safely handles context management internally, resulting in cleaner code
         return hashlib.sha256(Path(filepath).read_bytes()).hexdigest()
@@ -21,7 +26,13 @@ def calculate_sha256(filepath: str) -> str:
 
 
 def prompt_yes_no(message: str, default: bool = False) -> bool:
-    """Standard terminal prompt waiting for boolean input."""
+    """
+    Displays a standard terminal prompt waiting for boolean input.
+
+    :param message: The prompt text to display.
+    :param default: The default boolean fallback if the user presses Enter.
+    :return: The boolean choice submitted by the user.
+    """
     valid = {"yes": True, "y": True, "ye": True, "no": False, "n": False}
     if default:
         prompt_str = " [Y/n] "
