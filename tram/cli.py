@@ -4,25 +4,28 @@ import sys
 from .core import execute_check, execute_install, execute_list, execute_remove
 
 
-def main():
+def main() -> None:
+    """
+    Entrypoint for tram
+    """
     parser = argparse.ArgumentParser(description="Terminal Router for Agent Modules (TRAM)")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # install command
     install_parser = subparsers.add_parser("install", help="Install a skill from a URL")
-    install_parser.add_argument("url", help="Raw GitHub URL to a markdown file")
-    install_parser.add_argument("--agent", help="Target agent for compatibility check")
-    install_parser.add_argument("--global", dest="global_install", action="store_true", help="Install globally")
+    _ = install_parser.add_argument("url", help="Raw GitHub URL to a markdown file")
+    _ = install_parser.add_argument("--agent", help="Target agent for compatibility check")
+    _ = install_parser.add_argument("--global", dest="global_install", action="store_true", help="Install globally")
 
     # remove command
     remove_parser = subparsers.add_parser("remove", help="Remove an installed skill")
-    remove_parser.add_argument("skill_name", help="Name of the skill to remove")
+    _ = remove_parser.add_argument("skill_name", help="Name of the skill to remove")
 
     # list command
-    subparsers.add_parser("list", help="List installed skills")
+    _ = subparsers.add_parser("list", help="List installed skills")
 
     # check command
-    subparsers.add_parser("check", help="Check integrity of installed skills")
+    _ = subparsers.add_parser("check", help="Check integrity of installed skills")
 
     args = parser.parse_args()
 
