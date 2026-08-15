@@ -1,3 +1,12 @@
+"""
+Persistent state management and registry tracking.
+
+This module is responsible for reading and writing the `registry.json` file,
+which acts as the database for all installed skills. It uses atomic file
+operations to prevent corruption during writes. It is exclusively called by
+`core.py` whenever the installation state changes or needs to be queried.
+"""
+
 import json
 import os
 import tempfile
@@ -7,7 +16,7 @@ REGISTRY_DIR = Path.home() / ".tram"
 REGISTRY_FILE = REGISTRY_DIR / "registry.json"
 
 
-def load_registry() -> dict:
+def load_registry() -> dict[str, dict[str, str]]:
     """Reads ~/.tram/registry.json. Returns {} if missing."""
     if not REGISTRY_FILE.exists():
         return {}
@@ -19,7 +28,7 @@ def load_registry() -> dict:
         return {}
 
 
-def save_registry(state: dict) -> None:
+def save_registry(state: dict[str, dict[str, str]]) -> None:
     """Atomic write to prevent file corruption."""
     REGISTRY_DIR.mkdir(parents=True, exist_ok=True)
 

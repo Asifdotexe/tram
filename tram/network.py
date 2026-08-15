@@ -1,3 +1,12 @@
+"""
+Network interaction and payload retrieval utilities.
+
+This module handles all outbound HTTP requests to fetch skill payloads and
+manifests. It acts as an isolated networking layer, providing functions that
+`core.py` uses to pull remote data without exposing the underlying `urllib`
+implementation details.
+"""
+
 import urllib.request
 from urllib.error import HTTPError, URLError
 

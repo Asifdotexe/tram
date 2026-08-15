@@ -1,3 +1,11 @@
+"""
+Shared helper utilities for cryptography and user interaction.
+
+This module provides standalone, stateless functions for tasks like calculating
+SHA-256 hashes of files and capturing yes/no input from the terminal.
+These utilities are primarily utilized by `core.py` during interactive workflows.
+"""
+
 import hashlib
 import sys
 from pathlib import Path
@@ -21,11 +29,11 @@ def prompt_yes_no(message: str, default: bool = False) -> bool:
         prompt_str = " [y/N] "
 
     while True:
-        sys.stdout.write(message + prompt_str)
+        _ = sys.stdout.write(message + prompt_str)
         choice = input().lower().strip()
-        if default is not None and choice == "":
+        if choice == "":
             return default
         elif choice in valid:
             return valid[choice]
         else:
-            sys.stdout.write("Please respond with 'yes' or 'no' (or 'y' or 'n').\n")
+            _ = sys.stdout.write("Please respond with 'yes' or 'no' (or 'y' or 'n').\n")

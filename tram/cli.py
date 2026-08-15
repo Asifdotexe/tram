@@ -1,3 +1,11 @@
+"""
+Command Line Interface (CLI) configuration for TRAM.
+
+This module defines the argument parser and all available subcommands
+(install, remove, list, check). It captures user input from the terminal
+and routes it directly to the corresponding workflow functions in `core.py`.
+"""
+
 import argparse
 import sys
 
