@@ -40,6 +40,9 @@ ignore = [
     "B008",
 ]
 
+[tool.pyright]
+reportAny = false
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
